@@ -17,12 +17,22 @@ class Kernel extends BaseKernel
 
     public function getCacheDir()
     {
-        return $this->getProjectDir().'/var/cache/'.$this->environment;
+        if ($this->environment == 'vagrant') {
+            //Using vagrant is a good practice to move the cache and the logs outside of the shared folder.
+            return $this->getProjectDir().'/../../var/cache/ftlapi/'.$this->environment;
+        } else {
+            return $this->getProjectDir().'/var/cache/'.$this->environment;
+        }
     }
 
     public function getLogDir()
     {
-        return $this->getProjectDir().'/var/log';
+        if ($this->environment == 'vagrant') {
+            //Using vagrant is a good practice to move the cache and the logs outside of the shared folder.
+            return $this->getProjectDir().'/../../var/log/ftlapi/'.$this->environment;
+        } else {
+            return $this->getProjectDir().'/var/log/'.$this->environment;
+        }
     }
 
     public function registerBundles()
