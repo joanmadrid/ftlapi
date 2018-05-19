@@ -2,14 +2,30 @@
 
 namespace DoctrineMigrations;
 
+use App\Entity\ShipAttributeType;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20180519170016 extends AbstractMigration
+final class Version20180519170016 extends AbstractMigration implements ContainerAwareInterface
 {
+    private $container;
+
+    /**
+     * Set container
+     *
+     * @param ContainerInterface|null $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -36,5 +52,33 @@ final class Version20180519170016 extends AbstractMigration
         $this->addSql('DROP TABLE ship_ship_attribute');
         $this->addSql('DROP TABLE ship_attribute');
         $this->addSql('DROP TABLE ship_attribute_type');
+    }
+
+    /**
+     * Create the default Ship Attribute Types
+     * @param Schema $schema
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function postUp(Schema $schema)
+    {
+        /** @var EntityManager $em */
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $initialShipAttributeType = [
+            ['navegation', 'Speed of the ship'],
+            ['weapon', 'Power attack'],
+            ['shield', 'Shields power'],
+            ['hull', 'Damage the ship can take with out explode']
+        ];
+
+        foreach ($initialShipAttributeType as $type) {
+            $attributeType = new ShipAttributeType();
+            $attributeType->setName($type[0]);
+            $attributeType->setDescription($type[1]);
+            $em->persist($attributeType);
+        }
+        $em->flush();
     }
 }

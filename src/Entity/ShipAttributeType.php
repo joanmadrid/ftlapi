@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShipAttributeType
 {
+    //Properties
+    const PROPERTY_NAVEGATION   = 1;
+    const PROPERTY_WEAPON       = 2;
+    const PROPERTY_SHIELD       = 3;
+    const PROPERTY_HULL         = 4;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
