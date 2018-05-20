@@ -31,7 +31,6 @@ class Player
     private $id;
 
     /**
-     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Universe", inversedBy="players")
      * @ORM\JoinColumn(name="universe_id", referencedColumnName="id", onDelete="CASCADE")
      */

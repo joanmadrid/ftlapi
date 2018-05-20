@@ -53,7 +53,6 @@ class Sector
     private $children;
 
     /**
-     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Universe", inversedBy="sectors")
      * @ORM\JoinColumn(name="universe_id", referencedColumnName="id", onDelete="CASCADE")
      */
