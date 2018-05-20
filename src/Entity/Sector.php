@@ -52,6 +52,13 @@ class Sector
      */
     private $children;
 
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Universe", inversedBy="sectors")
+     * @ORM\JoinColumn(name="universe_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $universe;
+
     public function getId()
     {
         return $this->id;
@@ -91,5 +98,21 @@ class Sector
     {
         $this->children = $children;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUniverse()
+    {
+        return $this->universe;
+    }
+
+    /**
+     * @param mixed $universe
+     */
+    public function setUniverse($universe): void
+    {
+        $this->universe = $universe;
     }
 }
