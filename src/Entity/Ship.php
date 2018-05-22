@@ -13,6 +13,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class Ship
 {
+    const NAME = 'name';
+    const ATTRIBUTE = 'attribute';
+
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields

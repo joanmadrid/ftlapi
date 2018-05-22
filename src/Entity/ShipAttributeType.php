@@ -24,10 +24,18 @@ class ShipAttributeType
     use SoftDeleteableEntity;
 
     //Properties
-    const PROPERTY_NAVEGATION   = 1;
-    const PROPERTY_WEAPON       = 2;
-    const PROPERTY_SHIELD       = 3;
-    const PROPERTY_HULL         = 4;
+    const PROPERTY_NAVEGATION_ID       = 1;
+    const PROPERTY_NAVEGATION_NAME     = 'navigation';
+    const PROPERTY_WEAPON_ID           = 2;
+    const PROPERTY_WEAPON_NAME         = 'weapon';
+    const PROPERTY_SHIELD_ID           = 3;
+    const PROPERTY_SHIELD_NAME         = 'shield';
+    const PROPERTY_HULL_ID             = 4;
+    const PROPERTY_HULL_NAME           = 'hull';
+
+    const ALL_PROPERTIES = [
+        self::PROPERTY_NAVEGATION_ID => self::PROPERTY_NAVEGATION_NAME
+    ];
 
     /**
      * @ORM\Id()

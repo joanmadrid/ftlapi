@@ -11,6 +11,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class ShipAttribute
 {
+    const LEVEL = 'level';
+    const TYPE  = 'type';
+
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
@@ -31,11 +34,6 @@ class ShipAttribute
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $level;
@@ -49,18 +47,6 @@ class ShipAttribute
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getLevel(): ?int
