@@ -47,8 +47,16 @@ class ApplicationResetCommand extends ContainerAwareCommand
                 ''
             ]);
 
-            // Execute migrations
-            $this->executeMigrations($output);
+            // Update database.
+            $this->updateDatabaseSchema($output, [
+                '--force' => true
+            ]);
+
+            // Execute fixtures
+            $this->executeFixtures($output, [
+                    '--append' => true
+                ]
+            );
         }
         else {
             $output->writeln('This command can not be executed on production environment.');
@@ -112,6 +120,23 @@ class ApplicationResetCommand extends ContainerAwareCommand
     {
         $output->writeln(' - Executing migrations');
         $command = $this->getApplication()->find('doc:mig:mig');
+        $input = new ArrayInput($arguments);
+        $input->setInteractive(false);
+        $command->run($input, $output);
+    }
+
+    /**
+     * Execute Doctrine fixtures
+     *
+     * @param OutputInterface $output
+     * @param array $arguments
+     *
+     * @throws \Exception
+     */
+    protected function executeFixtures(OutputInterface $output, $arguments = [''])
+    {
+        $output->writeln(' - Executing fixtures');
+        $command = $this->getApplication()->find('doctrine:fixtures:load');
         $input = new ArrayInput($arguments);
         $input->setInteractive(false);
         $command->run($input, $output);
