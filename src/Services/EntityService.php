@@ -34,12 +34,12 @@ abstract class EntityService
     public function __construct()
     {
         $classParts = explode('\\', get_class($this));
-        $this->entityClass = str_replace(
+        $this->entityClass = 'App\\Entity\\'.str_replace(
             'Service',
             '',
             array_pop($classParts)
         );
-        if (!class_exists('App\\Entity\\'.$this->entityClass)) {
+        if (!class_exists($this->entityClass)) {
             throw new \Exception($this->entityClass.' class does not exist');
         }
 
