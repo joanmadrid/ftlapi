@@ -32,7 +32,7 @@
 
     <filter>
         <whitelist>
-            <directory>./src/</directory>
+            <directory>./src/Services</directory>
         </whitelist>
     </filter>
 
