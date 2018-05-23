@@ -15,7 +15,7 @@ use App\Entity\Universe;
  * Class SectorService
  * @package App\Services
  */
-class SectorService
+class SectorService extends EntityService
 {
     /**
      * Generate sectors in the universe
@@ -26,7 +26,7 @@ class SectorService
      * @param int $maxSiblings
      * @return Sector               Return the root sector of the universe
      */
-    public function generate(Universe $universe, $depth, $minSiblings, $maxSiblings)
+    public function generate(Universe $universe, $depth = 1, $minSiblings = 1, $maxSiblings = 1)
     {
         $root = new Sector();
         $root->setUniverse($universe);
