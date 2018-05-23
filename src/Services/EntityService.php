@@ -20,7 +20,7 @@ abstract class EntityService
     /**
      * @var ManagerRegistry
      */
-    protected $registry;
+    protected $manager;
 
     /**
      * @var string
@@ -59,7 +59,7 @@ abstract class EntityService
      */
     public function getManager()
     {
-        return $this->registry->getManagerForClass($this->entityClass);
+        return $this->manager->getManagerForClass($this->entityClass);
     }
 
     /**

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class SectorServiceTest extends TestCase
 {
     /**
-     * @covers SectorService::generate()
+     * @covers \App\Services\SectorService::generate()
      * @throws \Exception
      */
     public function testGenerateSuccess()
