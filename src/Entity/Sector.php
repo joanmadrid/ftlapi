@@ -41,13 +41,13 @@ class Sector
 
     /**
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne(targetEntity="Sector", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Sector", inversedBy="children", cascade={"persist"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sector", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Sector", mappedBy="parent", cascade={"persist"})
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
