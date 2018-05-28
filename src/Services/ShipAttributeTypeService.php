@@ -8,8 +8,9 @@
 
 namespace App\Service;
 
+use App\Services\EntityService;
 
-class ShipService
+class ShipAttributeTypeService extends EntityService
 {
 
 }

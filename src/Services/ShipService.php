@@ -8,9 +8,13 @@
 
 namespace App\Service;
 
-use App\Service\Definition\AbstracService;
 
-class ShipAttributeTypeService extends AbstracService
+use App\Entity\Ship;
+
+class ShipService
 {
-
+    public function create($shipParameters)
+    {
+        return new Ship();
+    }
 }
