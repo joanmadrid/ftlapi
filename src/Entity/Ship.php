@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -43,11 +43,11 @@ class Ship
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ShipAttribute")
      */
-    private $ShipAttribute;
+    private $ShipAttributes;
 
     public function __construct()
     {
-        $this->ShipAttribute = new ArrayCollection();
+        $this->ShipAttributes = new ArrayCollection();
     }
 
     public function getId()
@@ -70,15 +70,15 @@ class Ship
     /**
      * @return Collection|ShipAttribute[]
      */
-    public function getShipAttribute(): Collection
+    public function getShipAttributes(): Collection
     {
-        return $this->ShipAttribute;
+        return $this->ShipAttributes;
     }
 
     public function addShipAttribute(ShipAttribute $shipAttribute): self
     {
-        if (!$this->ShipAttribute->contains($shipAttribute)) {
-            $this->ShipAttribute[] = $shipAttribute;
+        if (!$this->ShipAttributes->contains($shipAttribute)) {
+            $this->ShipAttributes[] = $shipAttribute;
         }
 
         return $this;
@@ -86,8 +86,8 @@ class Ship
 
     public function removeShipAttribute(ShipAttribute $shipAttribute): self
     {
-        if ($this->ShipAttribute->contains($shipAttribute)) {
-            $this->ShipAttribute->removeElement($shipAttribute);
+        if ($this->ShipAttributes->contains($shipAttribute)) {
+            $this->ShipAttributes->removeElement($shipAttribute);
         }
 
         return $this;

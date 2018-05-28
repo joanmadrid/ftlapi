@@ -6,7 +6,7 @@
  * Time: 11:28
  */
 
-namespace App\Service;
+namespace App\Services;
 
 use App\Services\EntityService;
 

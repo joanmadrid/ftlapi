@@ -11,7 +11,7 @@ namespace App\Tests;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
 
-class AppKernelTest extends KernelTestCase
+abstract class AppKernelTest extends KernelTestCase
 {
     /**
      * @var Container
