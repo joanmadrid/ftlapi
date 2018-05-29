@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -13,9 +14,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class Ship
 {
-    const NAME = 'name';
-    const ATTRIBUTE = 'attribute';
-
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
@@ -37,6 +35,7 @@ class Ship
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 

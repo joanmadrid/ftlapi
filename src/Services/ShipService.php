@@ -10,9 +10,8 @@ namespace App\Services;
 
 
 use App\Entity\Ship;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
-class ShipService
+class ShipService extends EntityService
 {
     const PARAMETER_NAME = 'name';
 
@@ -20,30 +19,12 @@ class ShipService
      * Create a new ship
      *
      * @param array $shipParameters
-     *
-     * @return Ship
+     * @return Ship|mixed
+     * @throws \Exception
      */
     public function create(array $shipParameters)
     {
-        $this->checkParameters($shipParameters);
         $newShip = new Ship();
-        $newShip->setName($shipParameters[ShipService::PARAMETER_NAME]);
-        return new Ship();
-    }
-
-    private function checkParameters($shipParameters)
-    {
-        foreach ($this->getMandatoryParameters() as $parameter) {
-            if (!array_key_exists($parameter, $shipParameters)) {
-                throw new ParameterNotFoundException("Parameter: $parameter is missing");
-            }
-        }
-    }
-
-    private function getMandatoryParameters()
-    {
-        return [
-            self::PARAMETER_NAME
-        ];
+        return $this->update($newShip, $shipParameters);
     }
 }

@@ -4,11 +4,7 @@ namespace App\Tests;
 
 
 use App\Entity\Ship;
-use App\Entity\ShipAttribute;
-use App\Kernel;
-use App\Services\ShipAttributeTypeService;
 use App\Services\ShipService;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class ShipServiceTest extends AppKernelTest
@@ -27,6 +23,7 @@ class ShipServiceTest extends AppKernelTest
 
         $serenity = $shipService->create($shipParameters);
         $this->assertEquals(get_class($serenity), Ship::class);
+        $this->assertEquals($serenity->getName(), 'Serenity');
     }
     /**
      * @throws \Exception
