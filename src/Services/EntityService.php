@@ -9,6 +9,8 @@
 namespace App\Services;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * Class EntityService
@@ -28,21 +30,41 @@ abstract class EntityService
     protected $entityClass;
 
     /**
+     * @var string
+     */
+    protected $formClass;
+
+    /** @var FormFactoryInterface $formFactory */
+    protected $formFactory;
+
+    /**
      * EntityService constructor.
      * @throws \Exception
      */
     public function __construct()
     {
         $classParts = explode('\\', get_class($this));
-        $this->entityClass = 'App\\Entity\\'.str_replace(
+        $entityName = str_replace(
             'Service',
             '',
-            array_pop($classParts)
-        );
+            array_pop($classParts));
+
+        $this->entityClass = 'App\\Entity\\'.$entityName;
+        $this->formClass = 'App\\Form\\'.$entityName.'Type';
+
         if (!class_exists($this->entityClass)) {
             throw new \Exception($this->entityClass.' class does not exist');
         }
 
+    }
+
+    /**
+     * @required
+     * @param FormFactoryInterface $formFactory
+     */
+    public function setFormFactory(FormFactoryInterface $formFactory)
+    {
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -68,5 +90,25 @@ abstract class EntityService
     public function getRepository()
     {
        return $this->getManager()->getRepository($this->entityClass);
+    }
+
+    /**
+     * Update the entity with the parameters
+     *
+     * @param $entity
+     * @param array $parameters
+     *
+     * @return mixed
+     */
+    public function update($entity, array $parameters)
+    {
+        $form = $this->formFactory->create($this->formClass, $entity);
+        $form->submit($parameters);
+
+        if ($form->isValid()) {
+            return $form->getData();
+        } else {
+            throw new ParameterNotFoundException($form->getErrors()->current()->getMessage());
+        }
     }
 }
